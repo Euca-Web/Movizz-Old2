@@ -1,0 +1,22 @@
+.btn-nav-mobile{
+    display: none;
+}
+.site-nav{
+    display: block;
+    text-align: center;
+}
+
+@media screen and (max-width: 50rem){
+    .btn-nav-mobile{
+        display: block;
+    }
+    .site-nav{
+        display: none;
+    }
+    .site-nav-visible{
+        display: block;
+    }
+
+
+
+}

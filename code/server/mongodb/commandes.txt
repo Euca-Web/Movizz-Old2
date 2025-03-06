@@ -1,0 +1,8 @@
+- se connecter au serveur MongoDB
+
+    mongosh -u root --authenticationDatabase admin -p
+
+- Charger un fichier JS dans le serveur MongoDB
+
+    mongoimport -d Movizz -c contact --file contact.dev.json --jsonArray -u root -p --authenticationDatabase admin
+    mongoimport -d Movizz -c contact --file contact.dev.json --jsonArray -u root -p root --authenticationDatabase admin

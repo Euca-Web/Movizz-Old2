@@ -1,0 +1,36 @@
+import { useEffect, useState } from "react";
+import MovizzAPI from "../../service/movizz_api";
+import type movie from "../../model/movie";
+
+const MovizzList = () => {
+	// état pour stocker les résultats de la requête HTTP
+	const [movie, setMovie] = useState<movie[]>([]);
+
+	// use effect permet de déclencher des instructions à un moment de vie d'un composant
+	// - affiché
+	// - mise à jour avec un état
+	// désafficher
+
+	useEffect(() => {
+		// récuperer tous les enregistrements
+		// then permet de récuperer les données d'une promesses lorsque la fonction n'est pas asynchrone
+		new MovizzAPI().SelectAll().then((results) => setMovie(results.data));
+	}, []);
+
+	return (
+		<>
+			{/* 
+			map est la seule boucle disponible dans le HTML de react
+			les accolades dans le HTML permettent de séparer la partie HTML de la partie JS
+		*/}
+			{movie.map((result) => (
+				<article key={Math.random()}>
+					<h2>{result.title}</h2>
+					<p>Temps : {result.duration}</p>
+					<p>Poster : {result.poster}</p>
+				</article>
+			))}
+		</>
+	);
+};
+export default MovizzList;

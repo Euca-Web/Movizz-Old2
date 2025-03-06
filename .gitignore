@@ -1,0 +1,6 @@
+mysql-data/
+mongodb-data/
+code/server/dist
+code/client/dist
+code/server/node_modules
+code/client/node_modules

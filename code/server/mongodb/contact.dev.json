@@ -1,0 +1,19 @@
+[
+    {
+        "email": "email@email.fr",
+        "subject": "subject1",
+        "message": "message1"
+    },{
+        "email": "email@email2.fr",
+        "subject": "subject2",
+        "message": "message2"
+    },{
+        "email": "email@email3.fr",
+        "subject": "subject3",
+        "message": "message3"
+    },{
+        "email": "email@email4.fr",
+        "subject": "subject4",
+        "message": "message4"
+    }
+]

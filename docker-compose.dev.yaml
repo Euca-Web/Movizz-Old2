@@ -1,0 +1,43 @@
+services:
+  #  Base de données
+  #  Nom du service
+  mysql:  
+    image: mysql:9
+    ports:
+      - 3306:3306
+    volumes:
+      - ./code/server/mysql:/app
+      - ./mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+# docker compose -f docker-compose.dev.yaml up -d
+  #Serveur
+  server: 
+    image: node:23
+    ports:
+      - 3000:3000
+    volumes:
+      - ./code/server:/app
+    tty: true
+  #Client  
+  client: 
+    image: node:23
+    ports:
+      - 5173:5173
+    volumes:
+      - ./code/client:/app
+    tty: true
+  #Mongo
+  mongodb:
+    image: mongo:8
+    ports:
+      - 27017:27017
+    volumes: 
+      - ./code/server/mongodb:/app
+      - ./mongodb-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    restart: always
+    

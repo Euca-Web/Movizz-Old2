@@ -1,0 +1,42 @@
+import type { Request, Response } from "express";
+import moviesRepository from "../repository/movies_repository.js";
+
+class moviesController {
+    public index = async (req: Request, res: Response) => {
+        const result = await new moviesRepository().selectAll();
+        if (result instanceof Error) {
+            res.status(400).json({
+                status: 400,
+                message: process.env.NODE_ENV === "prod" ? "error" : result,
+                data: result
+            });
+            return;
+        }
+
+        res.status(200).json({
+            status: 200,
+            message: "Ok",
+            data: result
+        });
+    };
+
+    public one = async (req: Request, res: Response) => {
+        const result = await new moviesRepository().selectOne(req.params);
+        if (result instanceof Error) {
+            res.status(400).json({
+                status: 400,
+                message: process.env.NODE_ENV === "prod" ? "error" : result,
+                data: result
+            });
+            return;
+        }
+
+        res.status(200).json({
+            status: 200,
+            message: "Ok",
+            data: result
+        });
+    };
+}
+
+export default moviesController;

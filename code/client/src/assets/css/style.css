@@ -1,0 +1,10 @@
+/*
+styles communs à toutes les pages 
+*/
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: black;
+}
+img{width: 100%;}
