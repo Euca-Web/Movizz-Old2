@@ -2,6 +2,13 @@
 DROP DATABASE IF EXISTS Movizz;
 CREATE DATABASE Movizz;
 
+-- -- Table : Genres
+CREATE TABLE Movizz.gender (
+    gender_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+
 -- Table : Utilisateurs
 CREATE TABLE Movizz.users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,14 +22,15 @@ CREATE TABLE Movizz.users (
 -- Table : Films
 CREATE TABLE Movizz.movies (
     movie_id INT AUTO_INCREMENT PRIMARY KEY,
-    gender_id INT AUTO_INCREMENT FOREIGN Key,
+    gender_id INT,
     title VARCHAR(255) NOT NULL,
     description TEXT,
     release_date DATE,
-    duration INT, -- Durée en minutes
-    poster_url VARCHAR(255), -- URL de l'affiche
-    trailer_url VARCHAR(255), -- URL de la bande-annonce
-    director VARCHAR(255)
+    duration INT,
+    poster_url VARCHAR(255),
+    trailer_url VARCHAR(255),
+    director VARCHAR(255),
+    FOREIGN KEY(gender_id) REFERENCES gender(gender_id)
 );
 
 -- Table : Séries
@@ -34,11 +42,6 @@ CREATE TABLE Movizz.series (
     poster_url VARCHAR(255)
 );
 
--- -- Table : Genres
-CREATE TABLE Movizz.gender (
-    gender_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE
-);
 
 -- Table : Association Films <-> Genres
 CREATE TABLE Movizz.movie_gender (

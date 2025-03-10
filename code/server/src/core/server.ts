@@ -24,6 +24,10 @@ class Server {
 	constructor() {
 		// gérer les requêtes multi-origine: cors = Cross Origin Ressource Sharing
 		this.app.use(cors());
+
+		//accéder au contenu d'une requête HTTP -propriété body - au format JSON
+		this.app.use(express.json())
+
 		// lier l'application Express au routeur
 		this.app.use(this.router);
 		// définir la liste des routeurs

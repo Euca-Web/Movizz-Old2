@@ -7,7 +7,13 @@ class moviesRouter {
 	public getRoutes = () => {
 		this.routeur.get("/", new moviesController().index);
 		// crée une variable de route en la préfixant d'un :
-		this.routeur.get("/:movie_id", new moviesController().one)
+		this.routeur.get("/:movie_id", new moviesController().one);
+		//Créer un enregistrement
+		this.routeur.post("/", new moviesController().insert);
+		//Modifier un enregistrement
+		this.routeur.put("/", new moviesController().update);
+		//Supprimer un enregistrement
+		this.routeur.delete("/", new moviesController().delete);
 		
 		return this.routeur;
 	};
