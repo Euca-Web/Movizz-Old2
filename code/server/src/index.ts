@@ -1,4 +1,4 @@
-console.log('coucou');
+console.log('ça marche le S tié un bon');
 
 import Server from "./core/server.js";
 // Démarrer le serv

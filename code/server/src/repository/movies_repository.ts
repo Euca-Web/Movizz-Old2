@@ -87,10 +87,11 @@ class moviesRepository {
 	public insert = async (
 		data: Partial<movies>,
 	): Promise<movies[] | unknown> => {
+		//connexion au serveur SQL
 		const connection = await new MySqlService().connect();
 		// console.log(connection);
 
-		const sql = `
+		let sql = `
 			INSERT INTO 
 				${process.env.MYSQL_DATABASE}.${this.table}
 			VALUE
@@ -110,14 +111,53 @@ class moviesRepository {
 		// exécuter la commande
 		// try/catch : permet d'exécuter une instruction, si l'instruction échoue, une erreur est récupérée
 		try {
-			// récupérer les résultats de la requête
-			// result représente le prmeier indice du array renvoyé
-			// requêtes prépareées avec des variables de requêtes SQL permettent d'éviter les injections SQL
-			// data permet de définir une valeur aux variables de requêtes SQL
+			//crée une transaction SQL
+			connection.beginTransaction();
+			//execute la premiere requête
+			await connection.execute(sql, data);
+
+			//crée une variable SQL stockant le dernier id inséré
+			sql = `
+				SET @id = LAST_INSERT_ID();
+				`;
+
+				//execute la seconde requête
+				await connection.execute(sql, data);
+				
+				//execute la seconde requête
+				//1,2,3 >> (@id, 1), (@id, 2), (@id, 3)
+				//split permet de diviser une string en un array
+				//map permet de créer un array en fonction d'une fonction
+				//join permet de joindre les éléments d'un array en une string
+				const values = data.gender_ids?.split(",").map((id) => `(@id, ${id})`).join(",");
+				
+				// console.log(values);
+				
+				
+				sql = `
+				INSERT INTO
+					${process.env.MYSQL_DATABASE}.movie_gender
+				VALUES
+					${values}
+				;
+				`;
+				
+				
+				// récupérer les résultats de la requête
+				// result représente le prmeier indice du array renvoyé
+				// requêtes prépareées avec des variables de requêtes SQL permettent d'éviter les injections SQL
+				// data permet de définir une valeur aux variables de requêtes SQL
+				// //execute la troisième requête
 			const [results] = await connection.execute(sql, data);
+			//valider la transaction lorsque l'ensemble des requêtes d'une transaction ont réussie
+			connection.commit();
+
 			// si la requête a réussie
 			return results;
 		} catch (error) {
+			//si une erreur est renvoyée, annule la transaction
+			connection.rollback();
+			//renvoie l'erreur
 			return error;
 		}
 	};
@@ -129,7 +169,7 @@ class moviesRepository {
 		const connection = await new MySqlService().connect();
 		// console.log(connection);
 
-		const sql = `
+		let sql = `
 			UPDATE
 				${process.env.MYSQL_DATABASE}.${this.table}
 			SET
@@ -148,17 +188,56 @@ class moviesRepository {
 		// exécuter la commande
 		// try/catch : permet d'exécuter une instruction, si l'instruction échoue, une erreur est récupérée
 		try {
-			// récupérer les résultats de la requête
-			// result représente le prmeier indice du array renvoyé
-			// requêtes prépareées avec des variables de requêtes SQL permettent d'éviter les injections SQL
-			// data permet de définir une valeur aux variables de requêtes SQL
+			//crée une transaction SQL
+			connection.beginTransaction();
+			//execute la premiere requête
+			await connection.execute(sql, data);
+
+			//crée une variable SQL stockant le dernier id inséré
+			sql = `
+				SET @id = LAST_INSERT_ID();
+				`;
+
+				//execute la seconde requête
+				await connection.execute(sql, data);
+				
+				//execute la seconde requête
+				//1,2,3 >> (@id, 1), (@id, 2), (@id, 3)
+				//split permet de diviser une string en un array
+				//map permet de créer un array en fonction d'une fonction
+				//join permet de joindre les éléments d'un array en une string
+				const values = data.gender_ids?.split(",").map((id) => `(@id, ${id})`).join(",");
+				
+				// console.log(values);
+				
+				
+				sql = `
+				INSERT INTO
+					${process.env.MYSQL_DATABASE}.movie_gender
+				VALUES
+					${values}
+				;
+				`;
+				
+				
+				// récupérer les résultats de la requête
+				// result représente le prmeier indice du array renvoyé
+				// requêtes prépareées avec des variables de requêtes SQL permettent d'éviter les injections SQL
+				// data permet de définir une valeur aux variables de requêtes SQL
 			const [results] = await connection.execute(sql, data);
+			//valider la transaction lorsque l'ensemble des requêtes d'une transaction ont réussie
+			connection.commit();
+
 			// si la requête a réussie
 			return results;
 		} catch (error) {
+			//si une erreur est renvoyée, annule la transaction
+			connection.rollback();
+			//renvoie l'erreur
 			return error;
 		}
 	};
+
 
 	//supprimer un enregistrement
 	public delete = async (
@@ -169,7 +248,7 @@ class moviesRepository {
 		const connection = await new MySqlService().connect();
 		// console.log(connection);
 
-		const sql = `
+		let sql = `
 			DELETE FROM
 				${process.env.MYSQL_DATABASE}.${this.table}
 			WHERE
@@ -179,14 +258,31 @@ class moviesRepository {
 		// exécuter la commande
 		// try/catch : permet d'exécuter une instruction, si l'instruction échoue, une erreur est récupérée
 		try {
-			// récupérer les résultats de la requête
-			// result représente le prmeier indice du array renvoyé
-			// requêtes prépareées avec des variables de requêtes SQL permettent d'éviter les injections SQL
-			// data permet de définir une valeur aux variables de requêtes SQL
+			//crée une transaction SQL
+			connection.beginTransaction();
+			//execute la première requête pour supprimer les relations
+			await connection.execute(sql, data);
+	
+			// //requête pour supprimer le film
+			// sql = `
+			// 	DELETE FROM
+			// 		${process.env.MYSQL_DATABASE}.${this.table}
+			// 	WHERE
+			// 		${this.table}.movie_id = :movie_id
+			// 	;
+			// `;
+			
+			//execute la seconde requête
 			const [results] = await connection.execute(sql, data);
+			//valider la transaction
+			connection.commit();
+	
 			// si la requête a réussie
 			return results;
 		} catch (error) {
+			//si une erreur est renvoyée, annule la transaction
+			connection.rollback();
+			//renvoie l'erreur
 			return error;
 		}
 	};
