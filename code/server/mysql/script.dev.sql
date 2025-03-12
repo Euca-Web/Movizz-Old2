@@ -36,6 +36,7 @@ CREATE TABLE Movizz.movies (
 -- Table : Séries
 CREATE TABLE Movizz.series (
     series_id INT AUTO_INCREMENT PRIMARY KEY,
+    gender_id INT,
     title VARCHAR(255) NOT NULL,
     description TEXT,
     release_date DATE,
