@@ -6,8 +6,8 @@ type movies = {
 	release_year: Date;
 	duration: string;
 	summary: string;
-	poster: string;
-	teaser: string;
+	poster_url: string;
+	trailer_url: string;
 	gender_ids: string;
 	genders: gender[];
 };

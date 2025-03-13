@@ -43,6 +43,10 @@ class moviesController {
         //Créer un enregistrement
         //body = données envoyées par le client
         const result = await new moviesRepository().insert(req.body);
+
+            console.log(result);
+            
+
         if (result instanceof Error) {
             res.status(400).json({
                 status: 400,
