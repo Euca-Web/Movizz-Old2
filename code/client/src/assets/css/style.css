@@ -5,6 +5,11 @@ styles communs à toutes les pages
     box-sizing: border-box;
 }
 body{
-    background-color: black;
+    background-color: rgb(0, 0, 0);
+    color: azure;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    align-items: center;
 }
 img{width: 100%;}

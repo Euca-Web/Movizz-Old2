@@ -33,6 +33,7 @@ const Nav = () => {
 			>
 				<Link to={"/"}> Home </Link>
 				<Link to={"/contact"}> Contact </Link>
+				<Link to={"/admin"}> Administration </Link>
 			</nav>
 			{/* ajouter des évènements : 
                 - utiliser l'évènement directement dans la balise 
