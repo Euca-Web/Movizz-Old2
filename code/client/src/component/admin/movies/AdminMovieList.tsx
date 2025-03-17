@@ -12,7 +12,6 @@ const AdminMovieList = () => {
 	}, []);
 	return (
 		<>
-			<h2>AdminMovieList</h2>
 
 			<p>
 				<Link to={"/admin/movie/form"}>Ajouter un film</Link>
@@ -24,6 +23,7 @@ const AdminMovieList = () => {
 					<th>Genres</th>
 					<th>Durée</th>
 					<th>Année</th>
+					<th>Poster</th>
 					<th />
 				</tr>
 				{movies.map((movie) => {
@@ -44,6 +44,9 @@ const AdminMovieList = () => {
 										.toLocaleDateString()
 										.split(" ")[0]
 								}
+							</td>
+							<td>
+								<img src={`$import.meta.env.VITE_API_URL}/img/${movie.poster_url}`} alt="" />
 							</td>
 							<td>
 								<Link to={""}>Editer</Link>

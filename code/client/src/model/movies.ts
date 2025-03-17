@@ -2,6 +2,7 @@ import type gender from "./gender.js";
 
 type movies = {
 	movie_id: number;
+	gender_id: number;
 	title: string;
 	description: string;
 	release_date: Date;
