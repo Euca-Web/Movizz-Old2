@@ -26,7 +26,10 @@ class Server {
 		this.app.use(cors());
 
 		//accéder au contenu d'une requête HTTP -propriété body - au format JSON
-		this.app.use(express.json())
+		this.app.use(express.json());
+
+		//Définir le dossier public
+		this.app.use(express.static(process.env.ASSETS_DIR as string));
 
 		// lier l'application Express au routeur
 		this.app.use(this.router);
