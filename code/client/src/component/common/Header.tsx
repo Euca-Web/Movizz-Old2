@@ -10,7 +10,7 @@ const Header = () => {
 			<div className={styles["site-logo"]}>
 				{/* utiliser / pour cibler le dossier public */}
 				<Link to={"/"}>
-					<img src="/public/img/Musique Rap.jpg" alt="" />
+					<img src="" alt="" />
 				</Link>
 			</div>
 			<Nav />

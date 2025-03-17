@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MovizzAPI from "../../service/movizz_api";
-import type movie from "../../model/movie";
+import type movie from "../../model/movies.ts";
 
 const MovizzList = () => {
 	// état pour stocker les résultats de la requête HTTP
@@ -27,7 +27,7 @@ const MovizzList = () => {
 				<article key={Math.random()}>
 					<h2>{result.title}</h2>
 					<p>Temps : {result.duration}</p>
-					<p>Poster : {result.poster}</p>
+					<p>Poster : {result.poster_url}</p>
 				</article>
 			))}
 		</>

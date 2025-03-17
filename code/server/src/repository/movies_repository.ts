@@ -98,12 +98,13 @@ class moviesRepository {
 				NULL,
 				:gender_id,
 				:title,
-				:description,
+				:summary,
 				:release_date,
 				:duration,
 				:poster_url,
 				:trailer_url,
-				:director
+				:director,
+				NULL
 				)
 			;
         `;

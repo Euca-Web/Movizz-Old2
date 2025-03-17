@@ -11,10 +11,8 @@ import NotFoundRouter from "../router/not_found_router.js";
 import movieRouter from "../router/movies_routeur.js";
 import userRouter from "../router/users_routeur.js";
 import cors from "cors";
-import contactRouter from "../router/contact_routeur.js";
 import commentsRouter from "../router/comment_routeur.js";
 import favoriteRouter from "../router/favorites_routeur.js";
-import seriesRouter from "../router/series_routeur.js";
 
 class Server {
 	// instancier une application Express
@@ -43,10 +41,8 @@ class Server {
 		this.router.use("/gender", new genderRouter().getRoutes());
 		this.router.use("/movie", new movieRouter().getRoutes());
 		this.router.use("/user", new userRouter().getRoutes());
-		this.router.use("/contact", new contactRouter().getRoutes());
 		this.router.use("/comments", new commentsRouter().getRoutes());
 		this.router.use("/favorite", new favoriteRouter().getRoutes());
-		this.router.use("/series", new seriesRouter().getRoutes());
 
 		// Routeur des routes inexistantes doit être OBLIGATOIREMENT en dernière position
 		this.router.use("*", new NotFoundRouter().getRoutes());

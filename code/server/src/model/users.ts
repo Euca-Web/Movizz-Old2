@@ -1,9 +1,9 @@
 type users = {
     user_id: number;
-    first_name: string;
-    last_name: string; 
-    birth_date: Date;
-    nationality: string
+    username: string;
+    email: string; 
+    password_hash: string;
+    created_at: Date;
 }
 
 export default users;
