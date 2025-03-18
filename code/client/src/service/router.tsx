@@ -40,7 +40,7 @@ const router = createBrowserRouter([
 				element: <AdminMoviePage/>,
 			},
 			{
-				path: "movie/form",
+				path: "movie/form/:movie_id?",
 				element: <AdminMovieFormPage/>,
 			}
 		],

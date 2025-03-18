@@ -93,7 +93,7 @@ INSERT INTO Movizz.users (username, email, password_hash, created_at) VALUES
 ('user19', 'user19@example.com', 'hashed_password19', NOW()),
 ('user20', 'user20@example.com', 'hashed_password20', NOW());
 
-INSERT INTO Movizz.movies (title, description, release_date, duration, poster_url, trailer_url) VALUES
+INSERT INTO Movizz.movies (title, summary, release_date, duration, poster_url, trailer_url) VALUES
 ('Inception', 'Un voleur qui pénètre les rêves pour voler des secrets.', '2010-07-16', 148, 'https://example.com/inception.jpg', 'https://example.com/inception-trailer.mp4'),
 ('The Matrix', 'Un programmeur découvre la vérité sur sa réalité.', '1999-03-31', 136, 'https://example.com/matrix.jpg', 'https://example.com/matrix-trailer.mp4'),
 ('Interstellar', 'Un voyage spatial pour sauver l’humanité.', '2014-11-07', 169, 'https://example.com/interstellar.jpg', 'https://example.com/interstellar-trailer.mp4'),

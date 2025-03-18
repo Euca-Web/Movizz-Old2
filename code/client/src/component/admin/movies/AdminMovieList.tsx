@@ -33,7 +33,7 @@ const AdminMovieList = () => {
 							<td>
 								<ul>
 									{movie.genders.map((gender) => {
-										return <li key={gender.gender_id}>{gender.name}</li>;
+										return <li key={gender.gender_id}>{gender.gender_name}</li>;
 									})}
 								</ul>
 							</td>
@@ -49,8 +49,8 @@ const AdminMovieList = () => {
 								<img src={`$import.meta.env.VITE_API_URL}/img/${movie.poster_url}`} alt="" />
 							</td>
 							<td>
-								<Link to={""}>Editer</Link>
-								<Link to={""}>Supprimer</Link>
+								<Link className= "btn" to={`/admin/movie/form/${movie.movie_id}`}> Editer </Link>
+								<Link className= "btn" to={""}> Supprimer </Link>
 							</td>
 						</tr>
 					);
