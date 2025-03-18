@@ -5,6 +5,7 @@ import BaseLayout from "../layout/BaseLayout";
 import AdminHomePage from "../page/admin/AdminHomePage";
 import AdminMoviePage from "../page/admin/AdminMoviePage";
 import AdminMovieFormPage from "../page/admin/AdminMovieFormPage";
+import AdminDelete from "../page/admin/AdminDelete";
 
 const router = createBrowserRouter([
 	{
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
 			{
 				path: "movie/form/:movie_id?",
 				element: <AdminMovieFormPage/>,
+			},
+			{
+				path : "movie/delete/:movie_id",
+				element : <AdminDelete/>
 			}
 		],
 	},

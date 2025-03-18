@@ -33,7 +33,7 @@ const AdminMovieForm = () => {
 		// éxecuter en chaîne les promesses
 		Promise.allSettled([
 			new GenderAPI().SelectAll(),
-			new MovieAPI().SelectOne(movie_id as unknown as number),
+			movie_id ? new MovieAPI().SelectOne(movie_id as unknown as number) : null,
 		]).then((responses) => {
 			//si la première promesse est tenue
 			if (responses[0].status === "fulfilled") {
@@ -44,6 +44,13 @@ const AdminMovieForm = () => {
 				reset({
 					...responses[1].value.data,
 					release_date: responses[1].value.data.release_date.split("T")[0],
+				});
+			}
+
+			if (movie_id && responses[1]?.status === "fulfilled") {
+				reset({
+					...responses[1].value.data,
+					gender_ids: responses[1].value.data.gender_ids.split(","),
 				});
 			}
 		});
@@ -63,13 +70,14 @@ const AdminMovieForm = () => {
 	const onsubmitmovie = async (values: movies) => {
 		//créer un FormData en reprenant STRICTEMENT le nom des champs
 		const formData = new FormData();
+		formData.append("movie_id", values.movie_id.toString());
 		formData.append("gender_ids", values.gender_ids);
 		formData.append("title", values.title);
 		formData.append("summary", values.summary);
 		formData.append("release_date", values.release_date.toString());
 		//formData.append('release_date', values.release_date as unknown as string);
 		formData.append("duration", values.duration);
-		formData.append("poster_url", values.poster_url);
+		formData.append("poster_url", values.poster_url[0]);
 		//formData.append('poster_url', values.poster_url[0]);
 		formData.append("trailer_url", values.trailer_url);
 		formData.append("director", values.director);
@@ -78,7 +86,12 @@ const AdminMovieForm = () => {
 		//console.log(formData);
 
 		//requête HTTP
-		const request = await new MovieAPI().insert(formData);
+		const request = movie_id
+		? await new MovieAPI().update(formData)
+		: await new MovieAPI().insert(formData);	
+
+
+		
 
 		if ([201, 201].indexOf(request.status) > -1) {
 			//redirection
@@ -154,9 +167,10 @@ const AdminMovieForm = () => {
 				<label htmlFor="poster_url">URL de l'affiche :</label>
 				<input
 					type="file"
-					{...register("poster_url", {
+					id="poster_url"
+					{...register("poster_url", movie_id? {} : {
 						required: " Ce champ est obligatoire ! ",
-					})}
+					})}	
 				/>
 				{errors.poster_url && <span>{errors.poster_url.message}</span>}
 			</p>
@@ -171,6 +185,7 @@ const AdminMovieForm = () => {
 				{errors.director && <span>{errors.director.message}</span>}
 			</p>
 			<p>
+				<input type="hidden" {...register('movie_id')} value= {movie_id}/>
 				<button type="submit"> Ajouter </button>
 			</p>
 		</form>

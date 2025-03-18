@@ -24,6 +24,7 @@ const AdminMovieList = () => {
 					<th>Durée</th>
 					<th>Année</th>
 					<th>Poster</th>
+					{/* <th>Réalisateur</th> */}
 					<th />
 				</tr>
 				{movies.map((movie) => {
@@ -48,9 +49,12 @@ const AdminMovieList = () => {
 							<td>
 								<img src={`$import.meta.env.VITE_API_URL}/img/${movie.poster_url}`} alt="" />
 							</td>
+							{/* <td>
+								{movie.director}
+							</td> */}
 							<td>
 								<Link className= "btn" to={`/admin/movie/form/${movie.movie_id}`}> Editer </Link>
-								<Link className= "btn" to={""}> Supprimer </Link>
+								<Link className= "btn" to={`/admin/movie/delete/${movie.movie_id}`}> Supprimer </Link>
 							</td>
 						</tr>
 					);
