@@ -1,11 +1,11 @@
-import type users from "../model/users.js";
+import type role from "../model/role.js";
 import MySqlService from "../service/mysql_service.js";
 
 class usersRepository {
-	private table = "users";
+	private table = "role";
 // async = asynchronne = exécute de tâches en parallèle/async crée une promesse
 // la fonction renvoie un objet unknown lorsqu'une erreur est renvoyée 
-	public selectAll = async (): Promise<users[] | unknown> => {
+	public selectAll = async (): Promise<role[] | unknown> => {
 		const connection = await new MySqlService().connect();
 		// console.log(connection);
 
@@ -26,7 +26,7 @@ class usersRepository {
 
 	// récupérer un enregistrement par sa clé primaire
 	// Partial permet de définir des propriétés optionnelles 
-	public selectOne = async (data: Partial<users>): Promise<users[] | unknown> => {
+	public selectOne = async (data: Partial<role>): Promise<role[] | unknown> => {
 		const connection = await new MySqlService().connect();
 		// console.log(connection);
 
@@ -49,7 +49,7 @@ class usersRepository {
 
 			// récupérer le premier resultat 
 			// shift permet de récupérer le premier indice d'un array
-			const result = (results as users[]).shift();
+			const result = (results as role[]).shift();
 			// si la requête a réussie 
 			return results;
 		} catch (error) {

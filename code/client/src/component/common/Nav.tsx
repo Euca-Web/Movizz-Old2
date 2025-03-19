@@ -32,8 +32,14 @@ const Nav = () => {
 				ref={siteNav}
 			>
 				<Link to={"/"}> Home </Link>
+
 				<Link to={"/contact"}> Contact </Link>
+
 				<Link to={"/admin"}> Administration </Link>
+
+				<Link to={"/register"}> Inscription </Link>
+
+				<Link to={"/login"}> Connexion </Link>
 			</nav>
 			{/* ajouter des évènements : 
                 - utiliser l'évènement directement dans la balise 

@@ -2,7 +2,14 @@
 DROP DATABASE IF EXISTS Movizz;
 CREATE DATABASE Movizz;
 
--- -- Table : Genres
+-- Table : Roles utilisateurs
+CREATE TABLE Movizz.roles (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(50) NOT NULL UNIQUE,
+    description VARCHAR(255)
+);
+
+-- Table : Genres
 CREATE TABLE Movizz.gender (
     gender_id INT AUTO_INCREMENT PRIMARY KEY,
     gender_name VARCHAR(50) NOT NULL UNIQUE
@@ -11,10 +18,11 @@ CREATE TABLE Movizz.gender (
 -- Table : Utilisateurs
 CREATE TABLE Movizz.users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    username VARCHAR(50),
     email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
-    created_at DATETIME DEFAULT(NOW())
+    role_id INT DEFAULT 1,
+    FOREIGN KEY (role_id) REFERENCES roles(role_id) ON DELETE SET DEFAULT
 );
 
 -- Table : Films
@@ -48,16 +56,7 @@ CREATE TABLE Movizz.comments (
     movie_id INT, -- Null si c'est pour une série
     created_at DATETIME DEFAULT(NOW()),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE
-);
-
--- Table : Historique des vues
-CREATE TABLE Movizz.views (
-    view_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    movie_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE
+    FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE    
 );
 
 -- Table : Favoris
@@ -70,28 +69,15 @@ CREATE TABLE Movizz.favorites (
 );
 
 -- Insertion des données
-INSERT INTO Movizz.users (username, email, password_hash, created_at) VALUES
-('admin', 'admin@example.com', 'hashed_admin_password', NOW()), -- Admin
-('user1', 'user1@example.com', 'hashed_password1', NOW()),
-('user2', 'user2@example.com', 'hashed_password2', NOW()),
-('user3', 'user3@example.com', 'hashed_password3', NOW()),
-('user4', 'user4@example.com', 'hashed_password4', NOW()),
-('user5', 'user5@example.com', 'hashed_password5', NOW()),
-('user6', 'user6@example.com', 'hashed_password6', NOW()),
-('user7', 'user7@example.com', 'hashed_password7', NOW()),
-('user8', 'user8@example.com', 'hashed_password8', NOW()),
-('user9', 'user9@example.com', 'hashed_password9', NOW()),
-('user10', 'user10@example.com', 'hashed_password10', NOW()),
-('user11', 'user11@example.com', 'hashed_password11', NOW()),
-('user12', 'user12@example.com', 'hashed_password12', NOW()),
-('user13', 'user13@example.com', 'hashed_password13', NOW()),
-('user14', 'user14@example.com', 'hashed_password14', NOW()),
-('user15', 'user15@example.com', 'hashed_password15', NOW()),
-('user16', 'user16@example.com', 'hashed_password16', NOW()),
-('user17', 'user17@example.com', 'hashed_password17', NOW()),
-('user18', 'user18@example.com', 'hashed_password18', NOW()),
-('user19', 'user19@example.com', 'hashed_password19', NOW()),
-('user20', 'user20@example.com', 'hashed_password20', NOW());
+-- Insertion des rôles
+INSERT INTO Movizz.roles (role_id, role_name, description) VALUES
+(1, 'user', 'Utilisateur standard avec des droits limités'),
+(2, 'admin', 'Administrateur avec tous les droits');
+
+-- Insertion des utilisateurs
+INSERT INTO Movizz.users (username, email, password_hash, role_id) VALUES
+('admin', 'admin@example.com', '$argon2i$v=19$m=16,t=2,p=1$emFkbXBHQVJzN3U1aWU1Vg$6WMsugKFXLRuacf0AL2zHg', 2), -- Admin --mdp=admin
+('user1', 'user1@example.com', '$argon2i$v=19$m=16,t=2,p=1$aHg4V3BrUFV1VklhVEoyVg$MzFRU/mvrilQQkT3dofg9Q', 1); -- Utilisateur standard --mdp=user1
 
 INSERT INTO Movizz.movies (title, summary, release_date, duration, poster_url, trailer_url) VALUES
 ('Inception', 'Un voleur qui pénètre les rêves pour voler des secrets.', '2010-07-16', 148, 'https://example.com/inception.jpg', 'https://example.com/inception-trailer.mp4'),
@@ -158,69 +144,3 @@ INSERT INTO Movizz.movie_gender (movie_id, gender_id) VALUES
 (18, 3), (18, 2), -- The Hobbit - Science-Fiction, Aventure
 (19, 1), (19, 4), -- Black Panther - Action, Drame
 (20, 1), (20, 2); -- Wonder Woman - Action, Aventure
-
-INSERT INTO Movizz.comments (user_id, content, movie_id, created_at) VALUES
-(1, 'Un chef-d’œuvre visuel.', 1, NOW()),
-(2, 'Intrigue exceptionnelle, mais un peu longue.', 3, NOW()),
-(3, 'Ce film m’a bouleversé.', 5, NOW()),
-(4, 'Un peu surestimé selon moi.', 6, NOW()),
-(5, 'Une expérience immersive et captivante.', 9, NOW()),
-(6, 'La série est incroyable du début à la fin.', NULL, NOW()),
-(7, 'Personnages bien développés, mais une saison de trop.', NULL, NOW()),
-(8, 'C’est la meilleure série que j’ai vue.', NULL, NOW()),
-(9, 'L’univers est fascinant.', NULL, NOW()),
-(10, 'Les musiques et les décors sont époustouflants.', NULL, NOW()),
-(11, 'Un film divertissant, mais classique.', 11, NOW()),
-(12, 'L’humour est excellent.', NULL, NOW()),
-(13, 'La tension est incroyable.', 20, NOW()),
-(14, 'J’ai adoré les twists dans l’histoire.', 13, NOW()),
-(15, 'Une série addictive.', NULL, NOW()),
-(16, 'Très bien réalisé, mais pas assez original.', NULL, NOW()),
-(17, 'Personnages trop clichés.', NULL, NOW()),
-(18, 'Un film d’animation magnifique.', 15, NOW()),
-(19, 'La série devient meilleure avec chaque saison.', NULL, NOW()),
-(20, 'Un final qui laisse à désirer.', 18, NOW());
-
-INSERT INTO Movizz.views (user_id, movie_id) VALUES
-(1, 1),
-(2, 3),
-(3, 5),
-(4, NULL),
-(5, NULL),
-(6, NULL),
-(7, NULL),
-(8, 9),
-(9, NULL),
-(10, 11),
-(11, NULL),
-(12, 20),
-(13, 13),
-(14, NULL),
-(15, NULL),
-(16, NULL),
-(17, 15),
-(18, NULL),
-(19, 18),
-(20, NULL);
-
-INSERT INTO Movizz.favorites (user_id, movie_id) VALUES
-(1, 1),
-(2, 3),
-(3, 5),
-(4, NULL),
-(5, NULL),
-(6, NULL),
-(7, NULL),
-(8, 9),
-(9, NULL),
-(10, 11),
-(11, NULL),
-(12, 20),
-(13, 13),
-(14, NULL),
-(15, NULL),
-(16, NULL),
-(17, 15),
-(18, NULL),
-(19, 18),
-(20, NULL);

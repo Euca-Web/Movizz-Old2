@@ -6,6 +6,8 @@ import AdminHomePage from "../page/admin/AdminHomePage";
 import AdminMoviePage from "../page/admin/AdminMoviePage";
 import AdminMovieFormPage from "../page/admin/AdminMovieFormPage";
 import AdminDelete from "../page/admin/AdminDelete";
+import RegisterPage from "../page/register/RegisterPage";
+import LoginPage from "../page/Login/LoginPage";
 
 const router = createBrowserRouter([
 	{
@@ -23,6 +25,26 @@ const router = createBrowserRouter([
 				path: "contact",
 				element: <ContactPage />,
 			},
+		],
+	},
+	{
+		path: "/register",
+		element: <BaseLayout />,
+		children: [
+			{
+				path: "",
+				element: <RegisterPage />,
+			}
+		, ],
+	},
+	{
+		path: "/login",
+		element: <BaseLayout />,
+		children: [
+			{
+				path: "",
+			 	element: <LoginPage/>,
+			}
 		],
 	},
 	{

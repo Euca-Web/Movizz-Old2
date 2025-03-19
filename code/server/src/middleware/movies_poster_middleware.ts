@@ -54,10 +54,10 @@ class moviesPosterMiddleware {
                 req.body.poster_url = (poster as movies).poster_url;
             }
             //DELETE >supprimer l'ancien fichier
-            if (req.method === "DELETE") {
-                await fs.rm(
-                    `${process.env.ASSETS_DIR}/img/${(poster as movies).poster_url}`);
-            }
+            // if (req.method === "DELETE") {
+            //     await fs.rm(
+            //         `${process.env.ASSETS_DIR}/img/${(poster as movies).poster_url}`);
+            // }
         }
 
 		// passer au middleware suivant
