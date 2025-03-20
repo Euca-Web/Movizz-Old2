@@ -24,6 +24,7 @@ const AdminMovieList = () => {
 					<th>Durée</th>
 					<th>Année</th>
 					<th>Poster</th>
+					{/* <th>Réalisateur</th> */}
 					<th />
 				</tr>
 				{movies.map((movie) => {
@@ -33,7 +34,7 @@ const AdminMovieList = () => {
 							<td>
 								<ul>
 									{movie.genders.map((gender) => {
-										return <li key={gender.gender_id}>{gender.name}</li>;
+										return <li key={gender.gender_id}>{gender.gender_name}</li>;
 									})}
 								</ul>
 							</td>
@@ -48,9 +49,12 @@ const AdminMovieList = () => {
 							<td>
 								<img src={`$import.meta.env.VITE_API_URL}/img/${movie.poster_url}`} alt="" />
 							</td>
+							{/* <td>
+								{movie.director}
+							</td> */}
 							<td>
-								<Link to={""}>Editer</Link>
-								<Link to={""}>Supprimer</Link>
+								<Link className= "btn" to={`/admin/movie/form/${movie.movie_id}`}> Editer </Link>
+								<Link className= "btn" to={`/admin/movie/delete/${movie.movie_id}`}> Supprimer </Link>
 							</td>
 						</tr>
 					);

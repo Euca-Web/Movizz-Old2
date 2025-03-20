@@ -96,15 +96,14 @@ class moviesRepository {
 			VALUE
 				(
 				NULL,
-				:gender_id,
+				1,
 				:title,
 				:summary,
 				:release_date,
 				:duration,
 				:poster_url,
 				:trailer_url,
-				:director,
-				NULL
+				:director
 				)
 			;
         `;
@@ -176,9 +175,9 @@ class moviesRepository {
 			UPDATE
 				${process.env.MYSQL_DATABASE}.${this.table}
 			SET
-				${this.table}.gender_id = :gender_id,
+				${this.table}.gender_id = 1,
 				${this.table}.title = :title,
-				${this.table}.description = :description,
+				${this.table}.summary = :summary,
 				${this.table}.release_date = :release_date,
 				${this.table}.duration = :duration,
 				${this.table}.poster_url = :poster_url,

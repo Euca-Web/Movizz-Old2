@@ -4,7 +4,7 @@ type movies = {
 	movie_id: number;
 	gender_id: number;
 	title: string;
-	description: string;
+	summary: string;
 	release_date: Date;
 	duration: string;
 	poster_url: string;

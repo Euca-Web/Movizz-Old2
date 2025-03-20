@@ -13,6 +13,9 @@ import userRouter from "../router/users_routeur.js";
 import cors from "cors";
 import commentsRouter from "../router/comment_routeur.js";
 import favoriteRouter from "../router/favorites_routeur.js";
+import securityRouter from "../router/security_router.js";
+import roleRouter from "../router/role_routeur.js";
+import usersRouter from "../router/users_routeur.js";
 
 class Server {
 	// instancier une application Express
@@ -40,9 +43,11 @@ class Server {
 		this.router.use("/", new HomePageRouter().getRoutes());
 		this.router.use("/gender", new genderRouter().getRoutes());
 		this.router.use("/movie", new movieRouter().getRoutes());
-		this.router.use("/user", new userRouter().getRoutes());
+		this.router.use("/user", new usersRouter().getRoutes());	
 		this.router.use("/comments", new commentsRouter().getRoutes());
 		this.router.use("/favorite", new favoriteRouter().getRoutes());
+		this.router.use("/role", new roleRouter().getRoutes());
+		this.router.use("/", new securityRouter().getRoutes());
 
 		// Routeur des routes inexistantes doit être OBLIGATOIREMENT en dernière position
 		this.router.use("*", new NotFoundRouter().getRoutes());

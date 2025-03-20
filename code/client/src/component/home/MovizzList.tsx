@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MovizzAPI from "../../service/movizz_api";
+import MovieAPI from "../../service/movie_api.ts";
 import type movie from "../../model/movies.ts";
 
 const MovizzList = () => {
@@ -14,7 +14,7 @@ const MovizzList = () => {
 	useEffect(() => {
 		// récuperer tous les enregistrements
 		// then permet de récuperer les données d'une promesses lorsque la fonction n'est pas asynchrone
-		new MovizzAPI().SelectAll().then((results) => setMovie(results.data));
+		new MovieAPI().SelectAll().then((results) => setMovie(results.data));
 	}, []);
 
 	return (

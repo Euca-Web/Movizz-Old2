@@ -1,6 +1,6 @@
 type gender = {
     gender_id: number;
-    name: string;
+    gender_name: string;
 }
 
 export default gender;

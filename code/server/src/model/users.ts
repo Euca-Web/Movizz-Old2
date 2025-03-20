@@ -3,7 +3,7 @@ type users = {
     username: string;
     email: string; 
     password_hash: string;
-    created_at: Date;
+    role_id: number;
 }
 
 export default users;

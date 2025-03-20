@@ -1,11 +1,11 @@
-import type users from "../model/users.js";
+import type role from "../model/role.js";
 import MySqlService from "../service/mysql_service.js";
 
 class usersRepository {
-	private table = "users";
+	private table = "role";
 // async = asynchronne = exécute de tâches en parallèle/async crée une promesse
 // la fonction renvoie un objet unknown lorsqu'une erreur est renvoyée 
-	public selectAll = async (): Promise<users[] | unknown> => {
+	public selectAll = async (): Promise<role[] | unknown> => {
 		const connection = await new MySqlService().connect();
 		// console.log(connection);
 
@@ -26,7 +26,7 @@ class usersRepository {
 
 	// récupérer un enregistrement par sa clé primaire
 	// Partial permet de définir des propriétés optionnelles 
-	public selectOne = async (data: Partial<users>): Promise<users[] | unknown> => {
+	public selectOne = async (data: Partial<role>): Promise<role[] | unknown> => {
 		const connection = await new MySqlService().connect();
 		// console.log(connection);
 
@@ -36,7 +36,7 @@ class usersRepository {
             FROM  
                 ${process.env.MYSQL_DATABASE}.${this.table}
 			WHERE
-				${this.table}.user_id = :user_id
+				${this.table}_id = :user_id
         `;
 		// exécuter la commande
 		// try/catch : permet d'exécuter une instruction, si l'instruction échoue, une erreur est récupérée 
@@ -49,42 +49,13 @@ class usersRepository {
 
 			// récupérer le premier resultat 
 			// shift permet de récupérer le premier indice d'un array
-			const result = (results as users[]).shift();
+			const result = (results as role[]).shift();
 			// si la requête a réussie 
-			return result;
+			return results;
 		} catch (error) {
 			return error;
 		}
 	};
-
-	//sélectionner un enregistrement par un champ spécifique (email)
-	public selectOneByEmail = async (email:string): Promise<users | unknown> => {
-		const connection = await new MySqlService().connect();
-		// console.log(connection);
-
-		const sql = `
-			SELECT
-				${this.table}.*
-			FROM  
-				${process.env.MYSQL_DATABASE}.${this.table}
-			WHERE
-				${this.table}.email = :email
-		`;
-
-		try {
-			const [results]= await connection.execute(sql, {
-				email: email
-			});
-
-			// récupérer le premier resultat 
-			// shift permet de récupérer le premier indice d'un array
-			const result = (results as users[]).shift();
-
-			return result;
-		} catch (error) {
-			return error;
-		}
-	}
 }
 
 export default usersRepository;
