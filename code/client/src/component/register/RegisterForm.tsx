@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import SecurityAPI from "../../service/SecurityAPI";
 import users from "../../model/users";
+import { useState } from "react";
 
 
 const RegisterForm = () => {
@@ -12,7 +13,12 @@ formState: { errors },
 } = useForm<users>();
 
 // Redirection
-const navigate = useNavigate();
+    const navigate = useNavigate();
+
+//Message du formulaire
+const [message, setMessage] = useState<string>();
+
+
 
 const OnSubmit = async (values: users) => {
 console.log(values);
@@ -22,10 +28,15 @@ const request = await new SecurityAPI().register(values)
 console.log(request);
 
 // Tester le code de statut HTTP
-if ([200, 201].indexOf(request.status) > -1) {
-// Redirection
-navigate("/");
-}
+    if ([200, 201].indexOf(request.status) > -1) {
+
+        window.sessionStorage.setItem("notice", "Inscription réussie");
+        // Redirection
+        navigate("/login");
+    } else {
+        // Message
+        setMessage("Erreur lors de l'inscription");
+    }
 }
 
 
@@ -34,7 +45,10 @@ const { id } = useParams();
 
 return (
 <form onSubmit={handleSubmit(OnSubmit)}>
-<p>Register FORM</p>
+        <h2>Register</h2>
+        {
+            message ? <p>{ message }</p> : null
+        }
 <div>
 {/* NICKNAME */}
 <label htmlFor="username">Nickname:</label>

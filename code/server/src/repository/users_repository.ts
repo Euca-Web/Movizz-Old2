@@ -36,7 +36,7 @@ class usersRepository {
             FROM  
                 ${process.env.MYSQL_DATABASE}.${this.table}
 			WHERE
-				${this.table}_id = :user_id
+				${this.table}.user_id = :user_id
         `;
 		// exécuter la commande
 		// try/catch : permet d'exécuter une instruction, si l'instruction échoue, une erreur est récupérée 
@@ -51,11 +51,40 @@ class usersRepository {
 			// shift permet de récupérer le premier indice d'un array
 			const result = (results as users[]).shift();
 			// si la requête a réussie 
-			return results;
+			return result;
 		} catch (error) {
 			return error;
 		}
 	};
+
+	//sélectionner un enregistrement par un champ spécifique (email)
+	public selectOneByEmail = async (email:string): Promise<users | unknown> => {
+		const connection = await new MySqlService().connect();
+		// console.log(connection);
+
+		const sql = `
+			SELECT
+				${this.table}.*
+			FROM  
+				${process.env.MYSQL_DATABASE}.${this.table}
+			WHERE
+				${this.table}.email = :email
+		`;
+
+		try {
+			const [results]= await connection.execute(sql, {
+				email: email
+			});
+
+			// récupérer le premier resultat 
+			// shift permet de récupérer le premier indice d'un array
+			const result = (results as users[]).shift();
+
+			return result;
+		} catch (error) {
+			return error;
+		}
+	}
 }
 
 export default usersRepository;

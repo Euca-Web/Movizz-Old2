@@ -1,141 +1,93 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import UserAPI from "../../service/UserAPI";	
-import type users from "../../model/users";
+import users from "../../model/users";
+import { useState } from "react";
+import SecurityAPI from "../../service/SecurityAPI";
+import Notice from "../common/Notice";
 
-// import type
+
 const LoginForm = () => {
-	/*
-    handleSubmit: Fonction qui permet de gérer la soumission du formulaire
-    register: Fonction qui permet de lier un input à un champ du formulaire
-    formState: Objet qui contient des informations sur le formulaire
-    errors: Objet qui contient les erreurs du formulaire
-    reset: Fonction qui permet de réinitialiser le formulaire mais sur les cases à cocher il faut utiliser un array
-*/
-	const {
-		handleSubmit,
-		register,
-		formState: { errors },
-	} = useForm<users>();
-	const navigate = useNavigate();
+const {
+handleSubmit,
+register,
+formState: { errors },
+} = useForm<users>();
 
-	const { user_id } = useParams();
+// Redirection
+const navigate = useNavigate();
 
-	// const [loading, setloading] = useState<boolean>(true); // chargement de la page
-	// const [error, seterror] = useState<string | null>(null); // erreur de chargement
+// Message du formulaire
+const [message, setMessage] = useState<string>();
 
-	// useEffect(() => {	
-	// 	// éxecuter en chaîne les promesses
-	// 	Promise.allSettled([
-	// 		new RoleAPI().SelectAll(),
-	// 		user_id ? new UserAPI().SelectOne(user_id as unknown as number) : null,
-	// 	]).then((responses) => {
-	// 		//si la première promesse est tenue
-	// 		if (responses[0].status === "fulfilled") {
-	// 			setroles(responses[0].value.data);
-	// 		}
+const OnSubmit = async (values: users) => {
+console.log(values);
 
-	// 		if (responses[1].status === "fulfilled") {
-	// 			reset({
-	// 				...responses[1].value.data,
-	// 				release_date: responses[1].value.data.release_date.split("T")[0],
-	// 			});
-	// 		}
+// Requete HTTP
+const request = await new SecurityAPI().login(values)
+console.log(request);
 
-	// 		if (user_id && responses[1]?.status === "fulfilled") {
-	// 			reset({
-	// 				...responses[1].value.data,
-	// 				gender_ids: responses[1].value.data.gender_ids.split(","),
-	// 			});
-	// 		}
-	// 	});
-	// }, [reset, user_id]);
-
-	// Fonction qui sera appelée lors de la soumission du formulaire
-
-	/*deux types de formulaires:
-      - sans fichier: 
-          la propriété body de la requête HTTP peut être en JSON: JSON, stringify
-          dans la requête HTTP, utiliser l'en-tête HTTP: Content-Type : application/json
-    
-      -avec fichier:
-          La propriété body de la requête HTTP doit être en FormData
-          La balise <form> doit posséder l'attribut enctyper="multipart/form-data"
-  */
-	const onsubmituser = async (values: users) => {
-        console.log(values);
-        
-		//créer un FormData en reprenant STRICTEMENT le nom des champs
-		const formData = new FormData();
+// Tester le code de statut HTTP
+if ([200, 201].indexOf(request.status) > -1) {
+// Stocker un message en session
+window.sessionStorage.setItem("notice", "Account created");
+// Redirection
+ navigate("/admin");
+} else {
+setMessage("Check your email please");
+}
+}
 
 
-		//console.log(values);
-		//console.log(formData);
+// récuperer l'id de l'URL
+const { id } = useParams();
 
-		//requête HTTP
-		const request = user_id
-		? await new UserAPI().update(formData)
-		: await new UserAPI().insert(formData);	
+return (
+<form onSubmit={handleSubmit(OnSubmit)}>
+<p>Login</p>
 
+<Notice />
+{message ? <p>{message}</p> : null}
 
-		
+            <div>
+{/* EMAIL */}
+<label htmlFor="email">Email:</label>
+{/* reprendre STRICTEMENT le nom des colonnes SQL */}
+<input
+type="email"
+{...register("email", {
+required: "Email requis",
+minLength: {
+value: 2,
+message: "Email requis",
+},
+})}
+/>
+<small>{errors.email?.message}</small>
+</div>
 
-		if ([201, 201].indexOf(request.status) > -1) {
-			//redirection
-			navigate("/admin/user");
+            <div>
+{/* PASSWORD */}
+<label htmlFor="password_hash">Mot de passe:</label>
+{/* reprendre STRICTEMENT le nom des colonnes SQL */}
+<input
+type="password"
+{...register("password_hash", {
+required: "Mot de passe requis",
+minLength: {
+value: 2,
+message: "Mot de passe requis",
+},
+})}
+/>
+<small>{errors.password_hash?.message}</small>
+</div>
 
-			//récupérer les données de la réponse
-			const { user_id } = useParams();
-			console.log(user_id);
-		}
-	};
-	return (
-		<form
-			// className={styles.form}
-			onSubmit={handleSubmit(onsubmituser)}
-			encType="multipart/form-data"
-		>
-			{/* <p>
-				<label htmlFor="username">Username :</label>
-				<input
-					type="text"
-					{...register("username", {
-						required: " Ce champ est obligatoire !",
-					})}
-				/>
-				{errors.user_id && <span>{errors.user_id.message}</span>}
-			</p> */}
-			<p>
-				<label htmlFor="email">Email :</label>
-				<input
-					type="email"
-					{...login("email", {
-						required: " Ce champ est obligatoire ! ",
-						minLength: {
-							value: 2,
-							message: " L'email doit faire à minima 2 caractères ! ",
-						},
-						maxLength: {
-							value: 255,
-							message: " L'email doit faire au max 255 caractères ! ",
-						},
-					})}
-				/>
-				{errors.email && <span>{errors.email.message}</span>}
-			</p>
-			<p>
-				<label htmlFor="password_hash">Password :</label>
-				<input type="password" {...login("password_hash", {
-					required: " Ce champ est obligatoire !",
-				})} />
-				{errors.password_hash && <span>{errors.password_hash.message}</span>}
-			</p>
-			<p>
-				<input type="hidden" {...login('user_id')} value= {user_id}/>
-				<button type="submit"> Connexion </button>
-			</p>
-		</form>
-	);
+<div>
+<input type="hidden"{...register('user_id') } value={id} />
+<button type="submit">Submit</button>
+</div>
+</form>
+);
 };
 
 export default LoginForm;
