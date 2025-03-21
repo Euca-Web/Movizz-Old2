@@ -56,8 +56,8 @@ class securityController {
 
 		//si l'utilisateur n'existe pas
 		if (!results) {
-			res.status(400).json({
-				status: 400,
+			res.status(403).json({
+				status: 403,
 				message: process.env.NODE_ENV === "prod" ? "Error" : "User not found",
 			});
 			return;
@@ -81,8 +81,8 @@ class securityController {
 		
 
 		if (!isPasswordValid) {
-			res.status(400).json({
-				status: 400,
+			res.status(403).json({
+				status: 403,
 				message:
 					process.env.NODE_ENV === "prod" ? "Error" : "Password Incorrect",
 			});

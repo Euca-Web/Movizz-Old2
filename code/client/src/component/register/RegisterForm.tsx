@@ -30,7 +30,7 @@ console.log(request);
 // Tester le code de statut HTTP
     if ([200, 201].indexOf(request.status) > -1) {
 
-        window.sessionStorage.setItem("notice", "Inscription réussie");
+        // window.sessionStorage.setItem("notice", "Inscription réussie");
         // Redirection
         navigate("/login");
     } else {

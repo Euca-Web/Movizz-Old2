@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import styles from "../../assets/css/nav.module.css";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { UserContext } from "../../provider/UserProvider"; // Ensure this import exists
 
 const Nav = () => {
 	// crée une référence : lien vers un élément HTML
 	// remplace l'utilisation de querySelector / querySelectorAll
-	const siteNav = useRef(); // crée un état = useState
+	const siteNav = useRef<HTMLElement | null>(null); // crée un état = useState
 	// const [état, setter de l'état ] = useState<typer l'état>(valeur initiale de l'état)
 	const [NavMobileIsVisible, setNavMobileIsVisible] = useState<boolean>(false);
 	// clic sur le bouton de navigation mobile
@@ -15,10 +16,15 @@ const Nav = () => {
 		// console.log(NavMobileIsVisible);
 	};
 
+	//récupérer l'utilisateur
+
+	const { user } = useContext(UserContext); // récupère le contexte
+
 	// Les balises a sont remplacées par le composant
 	//  les attributs href sot remplacés par to
 	return (
 		<>
+			{JSON.stringify(user)}
 			{/* 
             attribut ref permet de relier un référence à une balise HTML 
             */}
@@ -32,14 +38,21 @@ const Nav = () => {
 				ref={siteNav}
 			>
 				<Link to={"/"}> Home </Link>
-
 				<Link to={"/contact"}> Contact </Link>
 
-				<Link to={"/admin"}> Administration </Link>
+				{user.role_id === 2 ? (
+				<Link to={'/admin'}>Administration</Link>
+				) : null}
+				
+				{user.role_id ? (
+					<Link to={"/logout"}> Déconnexion </Link>
+				) : (
+					<>
+						<Link to={"/register"}> Inscription </Link>
+						<Link to={"/login"}> Connexion </Link>
+					</>)}
 
-				<Link to={"/register"}> Inscription </Link>
-
-				<Link to={"/login"}> Connexion </Link>
+			
 			</nav>
 			{/* ajouter des évènements : 
                 - utiliser l'évènement directement dans la balise 

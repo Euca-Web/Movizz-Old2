@@ -8,13 +8,17 @@ import AdminMovieFormPage from "../page/admin/AdminMovieFormPage";
 import AdminDelete from "../page/admin/AdminDelete";
 import RegisterPage from "../page/register/RegisterPage";
 import LoginPage from "../page/Login/LoginPage";
+import LogoutPage from "../page/LogoutPage";
+import Guard from "../component/common/Guard";
 
 const router = createBrowserRouter([
 	{
 		// préfixe de toutes le URL enfants
 		path: "/",
 		// Utilisation d'une mise en page
-		element: <BaseLayout />,
+		element:<Guard roles_id={[1]}>
+					<BaseLayout />
+				</Guard>,
 		// Référencer les pages utilisant la mise en page
 		children: [
 			{
@@ -25,26 +29,18 @@ const router = createBrowserRouter([
 				path: "contact",
 				element: <ContactPage />,
 			},
-		],
-	},
-	{
-		path: "/register",
-		element: <BaseLayout />,
-		children: [
 			{
-				path: "",
+				path: "register",
 				element: <RegisterPage />,
-			}
-		, ],
-	},
-	{
-		path: "/login",
-		element: <BaseLayout />,
-		children: [
+			},
 			{
-				path: "",
-			 	element: <LoginPage/>,
-			}
+				path: "login",
+				element: <LoginPage/>,
+			},
+			{
+				path: "logout",
+				element: <LogoutPage />,
+			},
 		],
 	},
 	{
