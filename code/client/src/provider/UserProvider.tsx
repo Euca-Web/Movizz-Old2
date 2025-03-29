@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
-import UserProviderContext from "../model/context/user_provider_context";
-import UserProviderProps from "../model/props/user_provider_props";
-import users from "../model/users";
+import type UserProviderContext from "../model/context/user_provider_context";
+import type UserProviderProps from "../model/props/user_provider_props";
+import type users from "../model/users";
 
 //créer un contexte
 const UserContext = createContext({} as UserProviderContext);

@@ -54,7 +54,6 @@ const { id } = useParams();
 
 return (
 <form onSubmit={handleSubmit(onSubmit)}>
-<p>Login</p>
 
 <Notice />
 {message ? <p>{message}</p> : null}

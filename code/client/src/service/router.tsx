@@ -1,15 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../page/HomePage";
-import ContactPage from "../page/ContactPage";
 import BaseLayout from "../layout/BaseLayout";
 import AdminHomePage from "../page/admin/AdminHomePage";
 import AdminMoviePage from "../page/admin/AdminMoviePage";
 import AdminMovieFormPage from "../page/admin/AdminMovieFormPage";
 import AdminDelete from "../page/admin/AdminDelete";
-import RegisterPage from "../page/register/RegisterPage";
-import LoginPage from "../page/Login/LoginPage";
-import LogoutPage from "../page/LogoutPage";
 import Guard from "../component/common/Guard";
+import MoviesAZ from "../page/MoviesAZ";
+import CompactView from "../page/CompactView";
+import RecentMovies from "../page/RecentMovies";
+import LegalNotice from "../page/Legal/LegalNotice";
+import TermsOfUse from "../page/Legal/TermsOfUse";
+import Contact from "../page/Contact/Contact";
+import LoginForm from "../component/login/LoginForm";
+import RegisterForm from "../component/register/RegisterForm";
 
 const router = createBrowserRouter([
 	{
@@ -26,21 +30,37 @@ const router = createBrowserRouter([
 				element: <HomePage />,
 			},
 			{
-				path: "contact",
-				element: <ContactPage />,
+				path: "films-az",
+				element: <MoviesAZ/>
 			},
 			{
-				path: "register",
-				element: <RegisterPage />,
+				path: "films-recents",
+				element: <RecentMovies/>
+			},
+			{
+				path: "films-compact",
+				element: <CompactView/>
+			},
+			{
+				path: "mentions-legales",
+				element: <LegalNotice/>
+			},
+			{
+				path: "conditions-utilisation",
+				element: <TermsOfUse/>
+			},
+			{
+				path: "contact",
+				element: <Contact/>
 			},
 			{
 				path: "login",
-				element: <LoginPage/>,
+				element: <LoginForm />
 			},
 			{
-				path: "logout",
-				element: <LogoutPage />,
-			},
+				path: "register",
+				element: <RegisterForm />
+			}
 		],
 	},
 	{

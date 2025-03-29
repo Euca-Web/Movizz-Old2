@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import GuardProps from "../../model/props/guard_props"
+import type GuardProps from "../../model/props/guard_props"
 import { UserContext } from "../../provider/UserProvider";
 import { useNavigate } from "react-router-dom";
 

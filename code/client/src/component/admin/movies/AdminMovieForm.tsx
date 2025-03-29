@@ -117,11 +117,13 @@ const AdminMovieForm = () => {
             })}
           </select> */}
 				<input
-					type="text"
+					type="checkbox"
 					{...register("gender_ids", {
 						required: " Ce champ est obligatoire !",
 					})}
-				/>
+					/>
+					<label> </label>
+				
 				{errors.gender_ids && <span>{errors.gender_ids.message}</span>}
 			</p>
 			<p>
