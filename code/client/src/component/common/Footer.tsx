@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
 						alt="Movizz"
 						className="footer-logo-image"
 					/>
-					<p className="copyright">© 2024 Movizz. Tous droits réservés.</p>
+					<p className="copyright">© 2025 Movizz. Tous droits réservés.</p>
 				</div>
 			</div>
 		</footer>

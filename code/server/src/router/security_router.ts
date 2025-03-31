@@ -7,6 +7,7 @@ class securityRouter {
 	public getRoutes = () => {
 		this.routeur.post("/register", new securityController().register);
 		this.routeur.post("/login", new securityController().login);
+		this.routeur.post("/auth", new securityController().auth);
 		return this.routeur;
 	};
 }

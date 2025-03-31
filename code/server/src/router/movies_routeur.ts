@@ -2,6 +2,7 @@ import express, { type Response, type Request } from "express";
 import moviesController from "../controller/movies_controller.js";
 import multer from "multer";
 import moviesPosterMiddleware from "../middleware/movies_poster_middleware.js";
+import AuthMiddleware from "../middleware/authorization_middleware.js";
 
 class moviesRouter {
 	private routeur = express.Router();
@@ -14,6 +15,7 @@ class moviesRouter {
 		//Créer un enregistrement
 		this.routeur.post(
 			"/",
+			new AuthMiddleware().check(["2"]),
 			this.upload.any(),
 			new moviesPosterMiddleware().process,
 			new moviesController().insert,

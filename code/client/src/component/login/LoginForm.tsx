@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import users from "../../model/users";
+import type users from "../../model/users";
 import { useContext, useState } from "react";
 import SecurityAPI from "../../service/SecurityAPI";
 import Notice from "../common/Notice";

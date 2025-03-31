@@ -4,6 +4,8 @@ type users = {
     email: string; 
     password_hash: string;
     role_id: number;
+    //partie aléatoire de la clé
+    key: string;
 }
 
 export default users;

@@ -2,6 +2,7 @@ import type React from "react";
 import "./Navigation.css";
 
 const Navigation: React.FC = () => {
+
 	return (
 		<nav className="navigation">
 			<img src="/img/Group%2017.svg" alt="Movizz" className="nav-logo" />
