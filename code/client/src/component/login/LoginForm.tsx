@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import users from "../../model/users";
-import { useState } from "react";
+import type users from "../../model/users";
+import { useContext, useState } from "react";
 import SecurityAPI from "../../service/SecurityAPI";
 import Notice from "../common/Notice";
+import { UserContext } from "../../provider/UserProvider";
 
 
 const LoginForm = () => {
@@ -17,9 +18,11 @@ formState: { errors },
 const navigate = useNavigate();
 
 // Message du formulaire
-const [message, setMessage] = useState<string>();
+    const [message, setMessage] = useState<string>();
+  
+    const { setUser } = useContext(UserContext); 
 
-const OnSubmit = async (values: users) => {
+const onSubmit = async (values: users) => {
 console.log(values);
 
 // Requete HTTP
@@ -28,12 +31,20 @@ console.log(request);
 
 // Tester le code de statut HTTP
 if ([200, 201].indexOf(request.status) > -1) {
-// Stocker un message en session
-window.sessionStorage.setItem("notice", "Account created");
-// Redirection
- navigate("/admin");
+// stocker l'utilisateur dans le contexte
+    setUser(request.data);   
+    //redirection
+if (request.data.role_id === "2") {
+    navigate("/admin");
 } else {
-setMessage("Check your email please");
+    navigate("/");
+}    
+// Stocker un message en session
+// window.sessionStorage.setItem("notice", "Account created");
+// Redirection
+//  navigate("/admin");
+} else {
+setMessage("Erreur lors de la connexion au compte");
 }
 }
 
@@ -42,8 +53,7 @@ setMessage("Check your email please");
 const { id } = useParams();
 
 return (
-<form onSubmit={handleSubmit(OnSubmit)}>
-<p>Login</p>
+<form onSubmit={handleSubmit(onSubmit)}>
 
 <Notice />
 {message ? <p>{message}</p> : null}

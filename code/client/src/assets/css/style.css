@@ -14,6 +14,11 @@ body{
     align-items: center;
     text-align: center;
 }
+html, body {
+    height: 100%; /* Assure que le body occupe toute la hauteur de la fenêtre */
+    margin: 0;
+    padding: 0;
+}
 a{
     text-decoration: none;
     color: azure;
@@ -24,14 +29,15 @@ h1{
     margin: 1rem 0;
     color: azure;
 }
-footer{
+footer {
     text-align: center;
     background-color: rgb(0, 0, 0);
     color: azure;
     padding: 1rem;
-    position: fixed;
     bottom: 0;
+    position: fixed;
     width: 100%;
+    margin-top: auto; /* Pousse le footer vers le bas si nécessaire */
 }
 header{
     background-color: rgb(0, 0, 0);
@@ -43,7 +49,6 @@ header{
 }
 a:hover{
     color: rgb(0, 0, 0);
-    background-color: azure;
 }
 img{width: 100%;}
 

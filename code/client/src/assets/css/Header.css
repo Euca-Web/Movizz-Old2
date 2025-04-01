@@ -1,0 +1,138 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: linear-gradient(to bottom, rgba(10, 12, 23, 0.8) 0%, rgba(10, 12, 23, 0.4) 70%, rgba(10, 12, 23, 0) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); /* Pour la compatibilité Safari */
+  position: relative;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.main-nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  margin-right: 1rem;
+}
+
+.header-logo {
+  width: 200px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  color: #0066ff;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-o {
+  color: #8a2be2;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-35%, -50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid #8a2be2;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+
+
+.nav-link {
+  margin: 0 1rem;
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-purple);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.search-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: white;
+}
+
+.login-button {
+  background-color: var(--color-purple);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: var(--color-purple-dark);
+}

@@ -1,0 +1,19 @@
+.home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  padding: 5px;
+}
+
+.main-content {
+  margin-top: 15px;
+  flex: 1;
+  padding: 0 5px;
+}
+
+.movies-section,
+.movies-row {
+  padding-left: 5px;
+  padding-right: 5px;
+}

@@ -6,12 +6,17 @@
 
 import './assets/css/reset.css';
 import './assets/css/style.css';
+import { UserProvider } from './provider/UserProvider';
 import { RouterProvider } from "react-router-dom";
 import router from './service/router';
 
 
 
 const App = () => {
-  return <RouterProvider router={ router }/>;
+  return (
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider >
+  );
 }
 export default App

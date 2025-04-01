@@ -1,20 +1,28 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../page/HomePage";
-import ContactPage from "../page/ContactPage";
 import BaseLayout from "../layout/BaseLayout";
 import AdminHomePage from "../page/admin/AdminHomePage";
 import AdminMoviePage from "../page/admin/AdminMoviePage";
 import AdminMovieFormPage from "../page/admin/AdminMovieFormPage";
 import AdminDelete from "../page/admin/AdminDelete";
-import RegisterPage from "../page/register/RegisterPage";
-import LoginPage from "../page/Login/LoginPage";
+import Guard from "../component/common/Guard";
+import MoviesAZ from "../page/MoviesAZ";
+import CompactView from "../page/CompactView";
+import RecentMovies from "../page/RecentMovies";
+import LegalNotice from "../page/Legal/LegalNotice";
+import TermsOfUse from "../page/Legal/TermsOfUse";
+import Contact from "../page/Contact/Contact";
+import LoginForm from "../component/login/LoginForm";
+import RegisterForm from "../component/register/RegisterForm";
 
 const router = createBrowserRouter([
 	{
 		// préfixe de toutes le URL enfants
 		path: "/",
 		// Utilisation d'une mise en page
-		element: <BaseLayout />,
+		element:<Guard roles_id={[1]}>
+					<BaseLayout />
+				</Guard>,
 		// Référencer les pages utilisant la mise en page
 		children: [
 			{
@@ -22,28 +30,36 @@ const router = createBrowserRouter([
 				element: <HomePage />,
 			},
 			{
-				path: "contact",
-				element: <ContactPage />,
+				path: "films-az",
+				element: <MoviesAZ/>
 			},
-		],
-	},
-	{
-		path: "/register",
-		element: <BaseLayout />,
-		children: [
 			{
-				path: "",
-				element: <RegisterPage />,
-			}
-		, ],
-	},
-	{
-		path: "/login",
-		element: <BaseLayout />,
-		children: [
+				path: "films-recents",
+				element: <RecentMovies/>
+			},
 			{
-				path: "",
-			 	element: <LoginPage/>,
+				path: "films-compact",
+				element: <CompactView/>
+			},
+			{
+				path: "mentions-legales",
+				element: <LegalNotice/>
+			},
+			{
+				path: "conditions-utilisation",
+				element: <TermsOfUse/>
+			},
+			{
+				path: "contact",
+				element: <Contact/>
+			},
+			{
+				path: "login",
+				element: <LoginForm />
+			},
+			{
+				path: "register",
+				element: <RegisterForm />
 			}
 		],
 	},

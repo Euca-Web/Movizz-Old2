@@ -7,8 +7,11 @@ const Notice = () => {
     useEffect(() => {
         const message = window.sessionStorage.getItem("notice");
         // window.sessionStorage.removeItem("notice");
-        setNotice(message as string);
-    
+        if
+            (message) {
+            setNotice(message as string);
+            window.sessionStorage.removeItem("notice");
+        }
 }, []);
 return notice ? <p>{notice}</p> : null;
 }

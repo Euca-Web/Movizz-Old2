@@ -1,0 +1,92 @@
+.hero {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    overflow: hidden;
+  }
+  
+  .hero-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .hero-backdrop-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+    z-index: 2;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    padding: 2rem;
+    color: white;
+    max-width: 800px;
+  }
+  
+  .hero-title-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    margin: 0;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  
+  @media (max-width: 768px) {
+    .hero {
+      height: 60vh;
+    }
+    
+    .hero-title {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .hero {
+      height: 50vh;
+    }
+    
+    .hero-title {
+      font-size: 1.5rem;
+    }
+  }
+  

@@ -1,4 +1,4 @@
-class MovieAPI{
+class GenderAPI{
     //Selectionner tous les enregistrements
     public SelectAll = async () => {
         const request = new Request(`${import.meta.env.VITE_API_URL}/gender`);
@@ -7,13 +7,12 @@ class MovieAPI{
     };
     //Créer un enregistrement
     public insert = async (data:FormData) => {
-        const request = new Request(`${import.meta.env.VITE_API_URL}/movie`, {
+        const request = new Request(`${import.meta.env.VITE_API_URL}/gender`, { // Correction de l'URL
             method: 'POST', 
             body: data
         });
         const response = await fetch(request);
         return response.json();
     };
-    
 }
-export default MovieAPI;
+export default GenderAPI;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import MovieAPI from "../../service/movie_api.ts";
-import type movie from "../../model/movies.ts";
+import MovieAPI from "../../service/movie_api";
+import type movie from "../../model/movies";
 
 const MovizzList = () => {
 	// état pour stocker les résultats de la requête HTTP

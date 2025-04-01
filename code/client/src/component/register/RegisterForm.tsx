@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import SecurityAPI from "../../service/SecurityAPI";
-import users from "../../model/users";
+import type users from "../../model/users";
 import { useState } from "react";
 
 
@@ -30,7 +30,7 @@ console.log(request);
 // Tester le code de statut HTTP
     if ([200, 201].indexOf(request.status) > -1) {
 
-        window.sessionStorage.setItem("notice", "Inscription réussie");
+        // window.sessionStorage.setItem("notice", "Inscription réussie");
         // Redirection
         navigate("/login");
     } else {

@@ -1,4 +1,4 @@
-class MovieAPI{
+class DirectorAPI{
     //Selectionner tous les enregistrements
     public SelectAll = async () => {
         const request = new Request(`${import.meta.env.VITE_API_URL}/director`);
@@ -7,7 +7,7 @@ class MovieAPI{
     };
     //Créer un enregistrement
     public insert = async (data:FormData) => {
-        const request = new Request(`${import.meta.env.VITE_API_URL}/movie`, {
+        const request = new Request(`${import.meta.env.VITE_API_URL}/director`, {
             method: 'POST', 
             body: data
         });
@@ -16,4 +16,4 @@ class MovieAPI{
     };
     
 }
-export default MovieAPI;
+export default DirectorAPI;
